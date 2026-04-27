@@ -1,4 +1,5 @@
-import { supabase } from "@/lib/supabase";
+export const dynamic = "force-dynamic";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 type Guest = {
     id: number;
@@ -8,7 +9,7 @@ type Guest = {
 };
 
 async function getGuests(): Promise<Guest[]> {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
         .from("guests")
         .select("id, name, attending, created_at")
         .order("created_at", { ascending: false });
