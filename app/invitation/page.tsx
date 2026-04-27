@@ -639,7 +639,7 @@ export default function BabyShowerPage() {
           <p className="t-serif" style={{ textAlign: "center", fontSize: 14, color: "#6b5a42", marginBottom: 8 }}>
             Baby Shower en honor a:
           </p>
-          <h1 className="baby-name" style={{ marginBottom: 14 }}>Noah Zareth</h1>
+          <h1 className="baby-name" style={{ marginBottom: 14 }}>Noah Gabriel</h1>
           <p className="t-sans" style={{ textAlign: "center", fontSize: 13, color: "#9a8a72", lineHeight: 1.75, maxWidth: 300, margin: "0 auto 22px", fontWeight: "bold" }}>
             Pronto llegará nuestro bebé, por eso queremos compartir contigo esta fecha tan especial.
           </p>

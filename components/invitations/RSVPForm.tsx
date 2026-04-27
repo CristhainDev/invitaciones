@@ -24,6 +24,8 @@ export function RSVPForm({
   const onSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
+    e.preventDefault();
+
     if (isSubmitting) return;
 
     setIsSubmitting(true);
@@ -130,6 +132,11 @@ export function RSVPForm({
               fontWeight: 700,
               fontSize: "14px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
+              transition: "all 0.2s ease",
+              boxShadow: attending
+                ? "0 6px 18px rgba(127,179,211,0.25)"
+                : "none",
+              opacity: isSubmitting ? 0.7 : 1,
             }}
           >
             ✓ Asistiré
@@ -152,6 +159,12 @@ export function RSVPForm({
               fontWeight: 700,
               fontSize: "14px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
+              transition: "all 0.2s ease",
+              boxShadow:
+                attending === false
+                  ? "0 6px 18px rgba(216,154,154,0.20)"
+                  : "none",
+              opacity: isSubmitting ? 0.7 : 1,
             }}
           >
             ✕ No podré asistir
@@ -178,7 +191,7 @@ export function RSVPForm({
             justifyContent: "center",
             alignItems: "center",
             gap: "8px",
-            opacity: isSubmitting ? 0.7 : 1,
+            opacity: isSubmitting ? 0.75 : 1,
             cursor: isSubmitting ? "not-allowed" : "pointer",
           }}
         >
