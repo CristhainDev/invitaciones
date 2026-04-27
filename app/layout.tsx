@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Invitaciones Web",
     images: [
       {
-        url: "/preview.jpg",
+        url: "/preview.png",
         width: 1200,
         height: 630,
         alt: "Invitación Baby Shower Noah Zareth",
