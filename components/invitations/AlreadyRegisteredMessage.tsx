@@ -21,7 +21,7 @@ export function AlreadyRegisteredMessage({
                     fontWeight: "bold",
                 }}
             >
-                ✨ Hola, {name}
+                ¡Hola, {name}!
             </p>
 
             <p

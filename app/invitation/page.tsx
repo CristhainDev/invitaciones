@@ -729,7 +729,7 @@ export default function BabyShowerPage() {
           )}
 
           {/* Form */}
-          {showForm && !submitted && (
+          {showForm && !submitted && !alreadyRegistered && (
             <RSVPForm
               name={name}
               attending={attending}
@@ -739,6 +739,7 @@ export default function BabyShowerPage() {
             />
           )}
 
+          {/* Success */}
           {submitted && (
             <SuccessMessage
               attending={attending}
@@ -746,8 +747,11 @@ export default function BabyShowerPage() {
             />
           )}
 
+          {/* Already Registered */}
           {alreadyRegistered && (
-            <AlreadyRegisteredMessage name={name} />
+            <AlreadyRegisteredMessage
+              name={name}
+            />
           )}
 
           {/* Closing */}
