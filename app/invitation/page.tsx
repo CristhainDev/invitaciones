@@ -10,6 +10,7 @@ import { MapPinIcon, CheckIcon } from "@heroicons/react/24/solid";
 import { RSVPForm } from "@/components/invitations/RSVPForm";
 import { SuccessMessage } from "@/components/invitations/SuccessMessage";
 import { supabase } from "@/lib/supabase";
+import { AlreadyRegisteredMessage } from "@/components/invitations/AlreadyRegisteredMessage";
 
 /* ══════════════════════════════════════════════
    BALLOON DATA — fixed positions for 3 layers
@@ -68,6 +69,7 @@ export default function BabyShowerPage() {
   const [ready, setReady] = useState(false);
   const [risingBalloons, setRisingBalloons] = useState<RisingBalloon[]>([]);
   const [stars, setStars] = useState<StarParticle[]>([]);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   const BCOLORS = ["#a8c8e8", "#b8d8f0", "#d4b896", "#e8d5b7", "#c8dff0", "#e0ccb0", "#f5d0c8", "#b0ccdc"];
   const SCOLORS = ["#e8c96a", "#a8c8e8", "#d4b896", "#f0b8c8", "#c8b8e8"];
@@ -116,12 +118,18 @@ export default function BabyShowerPage() {
       .insert([
         {
           name: name.trim(),
-          attending: attending,
+          attending,
         },
       ]);
 
     if (error) {
       console.error(error);
+
+      if (error.code === "23505") {
+        setAlreadyRegistered(true);
+        return;
+      }
+
       alert("Ocurrió un error al confirmar asistencia");
       return;
     }
@@ -133,13 +141,12 @@ export default function BabyShowerPage() {
       },
       body: JSON.stringify({
         guestName: name.trim(),
-        attending: attending,
+        attending,
       }),
     });
 
     setSubmitted(true);
   };
-
 
   const openMaps = () => {
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -737,6 +744,10 @@ export default function BabyShowerPage() {
               attending={attending}
               name={name}
             />
+          )}
+
+          {alreadyRegistered && (
+            <AlreadyRegisteredMessage name={name} />
           )}
 
           {/* Closing */}

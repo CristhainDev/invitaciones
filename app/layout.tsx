@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 };*/
 
 export const metadata: Metadata = {
-  title: "Baby Shower Noah Zareth",
+  title: "Baby Shower Noah Gabriel",
   description:
     "Te invitamos a celebrar con nosotros este día tan especial 💙 Confirma tu asistencia aquí.",
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Baby Shower Noah Zareth",
+    title: "Baby Shower Noah Gabriel",
     description:
       "Te invitamos a celebrar con nosotros este día tan especial 💙",
     url: "https://invitaciones-gamma.vercel.app/invitation",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
         url: "/preview.png",
         width: 1200,
         height: 630,
-        alt: "Invitación Baby Shower Noah Zareth",
+        alt: "Invitación Baby Shower Noah Gabriel",
       },
     ],
     locale: "es_MX",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Baby Shower Noah Zareth",
+    title: "Baby Shower Noah Gabriel",
     description:
       "Te invitamos a celebrar con nosotros este día tan especial 💙",
     images: ["/preview.jpg"],
