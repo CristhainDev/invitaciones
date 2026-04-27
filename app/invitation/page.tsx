@@ -140,6 +140,20 @@ export default function BabyShowerPage() {
     setSubmitted(true);
   };
 
+
+  const openMaps = () => {
+    const destination = "25.6501455,-100.1912025";
+
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    const url = isIOS
+      ? `http://maps.apple.com/?q=${destination}`
+      : `https://www.google.com/maps?q=${destination}`;
+
+    window.open(url, "_blank");
+  };
+
+
   return (
     <>
       <style>{`
@@ -685,6 +699,27 @@ export default function BabyShowerPage() {
               </a>
 
               <button
+                onClick={openMaps}
+                className="btn-secondary"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  minWidth: "170px",
+                }}
+              >
+                <MapPinIcon
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    flexShrink: 0,
+                  }}
+                />
+                <span>Ubicación</span>
+              </button>
+
+              <button
                 className="btn-primary"
                 onClick={() => setShowForm((v) => !v)}
                 style={{
@@ -734,11 +769,7 @@ export default function BabyShowerPage() {
           <p className="t-script" style={{ fontFamily: "'Dancing Script',cursive", fontSize: "clamp(28px,8vw,36px)", color: "#7fb3d3", textAlign: "center", marginTop: 12 }}>
             ¡Te esperamos!
           </p>
-          {/*<div style={{ display: "flex", justifyContent: "center", gap: 8, fontSize: 20, marginTop: 10, flexWrap: "wrap" }}>
-            {(["🧸", "🎈", "⭐", "🎈", "🧸", "🌙", "🎀"] as const).map((e, i) => (
-              <span key={i} className="emoji-float" style={{ animationDuration: `${2.4 + i * 0.35}s`, animationDelay: `${i * 0.22}s` }}>{e}</span>
-            ))}
-          </div>*/}
+
         </div>
 
         <div style={{ height: 64 }} />
