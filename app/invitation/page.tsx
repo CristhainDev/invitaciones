@@ -142,17 +142,18 @@ export default function BabyShowerPage() {
 
 
   const openMaps = () => {
-    const destination = "25.6501455,-100.1912025";
-
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    const url = isIOS
-      ? `http://maps.apple.com/?q=${destination}`
-      : `https://www.google.com/maps?q=${destination}`;
+    const appleMapsUrl =
+      "https://maps.apple/p/0BGVEtp5XrUJxu";
+
+    const googleMapsUrl =
+      "https://www.google.com/maps/place/Marie+Eventos/@25.6501859,-100.1942782,16.8z/data=!4m14!1m7!3m6!1s0x8662c111125293af:0x63b3393f35f87ca6!2sMarie+Eventos!8m2!3d25.6501455!4d-100.1912025!16s%2Fg%2F11wxhnqfbg!3m5!1s0x8662c111125293af:0x63b3393f35f87ca6!8m2!3d25.6501455!4d-100.1912025!16s%2Fg%2F11wxhnqfbg?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D";
+
+    const url = isIOS ? appleMapsUrl : googleMapsUrl;
 
     window.open(url, "_blank");
   };
-
 
   return (
     <>
@@ -675,28 +676,6 @@ export default function BabyShowerPage() {
           {/* CTA */}
           {!submitted && (
             <div className="btn-wrap" style={{ marginBottom: 18 }}>
-              <a
-                href="https://www.google.com/maps/place/Marie+Eventos/@25.6501859,-100.1942782,16.8z/data=!4m14!1m7!3m6!1s0x8662c111125293af:0x63b3393f35f87ca6!2sMarie+Eventos!8m2!3d25.6501455!4d-100.1912025!16s%2Fg%2F11wxhnqfbg!3m5!1s0x8662c111125293af:0x63b3393f35f87ca6!8m2!3d25.6501455!4d-100.1912025!16s%2Fg%2F11wxhnqfbg?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  minWidth: "170px",
-                }}
-              >
-                <MapPinIcon
-                  style={{
-                    width: "18px",
-                    height: "18px",
-                    flexShrink: 0,
-                  }}
-                />
-                <span>Ubicación</span>
-              </a>
 
               <button
                 onClick={openMaps}
