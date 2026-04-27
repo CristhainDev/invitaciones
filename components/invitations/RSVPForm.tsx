@@ -1,13 +1,15 @@
 "use client";
+
+import { useState } from "react";
 import { GiftIcon, EnvelopeIcon } from "@heroicons/react/16/solid";
-import "../../app/globals.css"
+import "../../app/globals.css";
 
 type RSVPFormProps = {
   name: string;
   attending: boolean;
   setAttending: (value: boolean) => void;
   setName: (value: string) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export function RSVPForm({
@@ -17,6 +19,22 @@ export function RSVPForm({
   setName,
   handleSubmit,
 }: RSVPFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await handleSubmit(e);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="form-box" style={{ marginBottom: 18 }}>
       <h2
@@ -27,13 +45,11 @@ export function RSVPForm({
           color: "#4a8ab5",
           marginBottom: 12,
           fontFamily: "Lato",
-          fontWeight: "bold"
+          fontWeight: "bold",
         }}
       >
         Confirmar asistencia
       </h2>
-
-
 
       <p
         className="t-sans"
@@ -44,7 +60,7 @@ export function RSVPForm({
           lineHeight: 1.7,
           marginBottom: 18,
           fontFamily: "Lato",
-          fontWeight: "bolder"
+          fontWeight: "bolder",
         }}
       >
         Tu presencia será nuestro mejor regalo 💙 <br />
@@ -63,37 +79,35 @@ export function RSVPForm({
           color: "#9a8a72",
         }}
       >
-
         <GiftIcon
           style={{
             width: "25px",
             height: "25px",
             flexShrink: 0,
-            color: "#7fb3d3"
+            color: "#7fb3d3",
           }}
-        /> o
+        />
+
+        o
+
         <EnvelopeIcon
           style={{
             width: "25px",
             height: "25px",
             flexShrink: 0,
-            color: "#7fb3d3"
+            color: "#7fb3d3",
           }}
         />
-
       </div>
 
-
-
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         style={{
           display: "flex",
           flexDirection: "column",
           gap: 14,
         }}
       >
-
         <div
           style={{
             display: "flex",
@@ -103,6 +117,7 @@ export function RSVPForm({
         >
           <button
             type="button"
+            disabled={isSubmitting}
             onClick={() => setAttending(true)}
             style={{
               flex: 1,
@@ -114,11 +129,7 @@ export function RSVPForm({
               fontFamily: "Lato",
               fontWeight: 700,
               fontSize: "14px",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow: attending
-                ? "0 6px 18px rgba(127,179,211,0.25)"
-                : "none",
+              cursor: isSubmitting ? "not-allowed" : "pointer",
             }}
           >
             ✓ Asistiré
@@ -126,29 +137,26 @@ export function RSVPForm({
 
           <button
             type="button"
+            disabled={isSubmitting}
             onClick={() => setAttending(false)}
             style={{
               flex: 1,
               padding: "12px 16px",
               borderRadius: "14px",
               border: "2px solid #f0d4d4",
-              background: attending === false ? "#d89a9a" : "white",
-              color: attending === false ? "white" : "#a56b6b",
+              background:
+                attending === false ? "#d89a9a" : "white",
+              color:
+                attending === false ? "white" : "#a56b6b",
               fontFamily: "Lato",
               fontWeight: 700,
               fontSize: "14px",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              boxShadow: attending === false
-                ? "0 6px 18px rgba(216,154,154,0.20)"
-                : "none",
+              cursor: isSubmitting ? "not-allowed" : "pointer",
             }}
           >
             ✕ No podré asistir
           </button>
         </div>
-
-
 
         <input
           className="form-input"
@@ -157,20 +165,26 @@ export function RSVPForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          disabled={isSubmitting}
         />
 
         <button
           type="submit"
           className="btn-primary"
+          disabled={isSubmitting}
           style={{
             width: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             gap: "8px",
+            opacity: isSubmitting ? 0.7 : 1,
+            cursor: isSubmitting ? "not-allowed" : "pointer",
           }}
         >
-          ✓ Confirmar asistencia
+          {isSubmitting
+            ? "Enviando..."
+            : "✓ Confirmar asistencia"}
         </button>
       </form>
     </div>
