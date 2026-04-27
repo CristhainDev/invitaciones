@@ -12,13 +12,50 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+/*export const metadata: Metadata = {
   title: "Invitaciones",
   description: "Invitaciones web",
   icons: {
     icon: "/icon.webp",
   },
+};*/
+
+export const metadata: Metadata = {
+  title: "Baby Shower Noah Zareth",
+  description:
+    "Te invitamos a celebrar con nosotros este día tan especial 💙 Confirma tu asistencia aquí.",
+
+  icons: {
+    icon: "/icon.webp",
+  },
+
+  openGraph: {
+    title: "Baby Shower Noah Zareth",
+    description:
+      "Te invitamos a celebrar con nosotros este día tan especial 💙",
+    url: "https://invitaciones-gamma.vercel.app/invitation",
+    siteName: "Invitaciones Web",
+    images: [
+      {
+        url: "/preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Invitación Baby Shower Noah Zareth",
+      },
+    ],
+    locale: "es_MX",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Baby Shower Noah Zareth",
+    description:
+      "Te invitamos a celebrar con nosotros este día tan especial 💙",
+    images: ["/preview.jpg"],
+  },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
