@@ -211,7 +211,7 @@ export function RSVPForm({
           </label>
 
           <input
-            className="form-input"
+            className="form-input text-center"
             type="text"
             placeholder="Escribe tu nombre..."
             value={name}
@@ -242,7 +242,7 @@ export function RSVPForm({
           </label>
 
           <input
-            className="form-input"
+            className="form-input text-center"
             type="tel"
             inputMode="numeric"
             pattern="[0-9]*"
