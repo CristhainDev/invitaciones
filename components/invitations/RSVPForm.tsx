@@ -24,6 +24,7 @@ export function RSVPForm({
   handleSubmit,
 }: RSVPFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -32,8 +33,8 @@ export function RSVPForm({
 
     if (isSubmitting) return;
 
-    if (guestsCount > 3) {
-      alert("El máximo permitido es de 3 asistentes");
+    if (guestsCount > 2) {
+      setErrorMessage("El máximo permitido es de 2 invitados.");
       return;
     }
 
@@ -43,6 +44,7 @@ export function RSVPForm({
       await handleSubmit(e);
     } finally {
       setIsSubmitting(false);
+      setErrorMessage("");
     }
   };
 
@@ -125,6 +127,16 @@ export function RSVPForm({
           gap: 14,
         }}
       >
+        <label
+          className="text-sm font-semibold tracking-wide text-center"
+          style={{
+            color: "#4a8ab5",
+            fontFamily: "Lato",
+            fontSize: "10px"
+          }}
+        >
+          Selecciona::
+        </label>
         <div
           style={{
             display: "flex",
@@ -138,14 +150,14 @@ export function RSVPForm({
             onClick={() => setAttending(true)}
             style={{
               flex: 1,
-              padding: "12px 16px",
+              padding: "6px 8px",
               borderRadius: "14px",
               border: "2px solid #b8d8f0",
               background: attending ? "#7fb3d3" : "white",
               color: attending ? "white" : "#4a8ab5",
               fontFamily: "Lato",
               fontWeight: 700,
-              fontSize: "12px",
+              fontSize: "10px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
               transition: "all 0.2s ease",
               boxShadow: attending
@@ -172,7 +184,7 @@ export function RSVPForm({
                 attending === false ? "white" : "#a56b6b",
               fontFamily: "Lato",
               fontWeight: 700,
-              fontSize: "12px",
+              fontSize: "10px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
               transition: "all 0.2s ease",
               boxShadow:
@@ -192,6 +204,7 @@ export function RSVPForm({
             style={{
               color: "#4a8ab5",
               fontFamily: "Lato",
+              fontSize: "10px"
             }}
           >
             Nombre:
@@ -222,6 +235,7 @@ export function RSVPForm({
             style={{
               color: "#4a8ab5",
               fontFamily: "Lato",
+              fontSize: "10px"
             }}
           >
             Invitados:
@@ -233,7 +247,7 @@ export function RSVPForm({
             inputMode="numeric"
             pattern="[0-9]*"
             min={1}
-            max={3}
+            max={2}
             placeholder="Máximo 3 asistentes"
             value={guestsCount}
             onChange={(e) =>
@@ -251,6 +265,27 @@ export function RSVPForm({
             }}
           />
         </div>
+
+
+        {errorMessage && (
+          <div
+            style={{
+              background: "#fff4f4",
+              border: "1px solid #f5c2c2",
+              color: "#b54747",
+              padding: "12px 14px",
+              borderRadius: "14px",
+              fontSize: "13px",
+              fontWeight: 600,
+              fontFamily: "Lato",
+              textAlign: "center",
+              boxShadow: "0 6px 18px rgba(181,71,71,0.08)",
+              animation: "popIn 0.25s ease",
+            }}
+          >
+            ⚠ {errorMessage}
+          </div>
+        )}
 
         <button
           type="submit"
