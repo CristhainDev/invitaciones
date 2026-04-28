@@ -69,8 +69,8 @@ export async function POST(req: Request) {
               <p style="margin: 0;">
                 <strong>Confirmación:</strong><br />
                 ${attending
-                    ? "✅ Sí asistirá al evento"
-                    : "❌ No podrá asistir"
+                    ? "🟢 Sí asistirá al evento"
+                    : "🔴 No podrá asistir"
                 }
               </p>
             </div>

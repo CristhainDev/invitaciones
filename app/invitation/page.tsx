@@ -65,6 +65,7 @@ export default function BabyShowerPage() {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [attending, setAttending] = useState(true);
+  const [guestsCount, setGuestsCount] = useState(1);
 
   const [ready, setReady] = useState(false);
   const [risingBalloons, setRisingBalloons] = useState<RisingBalloon[]>([]);
@@ -119,6 +120,7 @@ export default function BabyShowerPage() {
         {
           name: name.trim(),
           attending,
+          guestsCount,
         },
       ]);
 
@@ -735,6 +737,8 @@ export default function BabyShowerPage() {
               attending={attending}
               setAttending={setAttending}
               setName={setName}
+              guestsCount={guestsCount}
+              setGuestsCount={setGuestsCount}
               handleSubmit={handleSubmit}
             />
           )}

@@ -7,6 +7,8 @@ import "../../app/globals.css";
 type RSVPFormProps = {
   name: string;
   attending: boolean;
+  guestsCount: number;
+  setGuestsCount: (value: number) => void;
   setAttending: (value: boolean) => void;
   setName: (value: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -16,6 +18,8 @@ export function RSVPForm({
   name,
   setAttending,
   attending,
+  guestsCount,
+  setGuestsCount,
   setName,
   handleSubmit,
 }: RSVPFormProps) {
@@ -27,6 +31,11 @@ export function RSVPForm({
     e.preventDefault();
 
     if (isSubmitting) return;
+
+    if (guestsCount > 3) {
+      alert("El máximo permitido es de 3 asistentes");
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -52,6 +61,12 @@ export function RSVPForm({
       >
         Confirmar asistencia
       </h2>
+
+      {/* Divider */}
+      <div className="divider">
+        <div className="divider-line" />
+        <div className="divider-line" />
+      </div>
 
       <p
         className="t-sans"
@@ -130,7 +145,7 @@ export function RSVPForm({
               color: attending ? "white" : "#4a8ab5",
               fontFamily: "Lato",
               fontWeight: 700,
-              fontSize: "14px",
+              fontSize: "12px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
               transition: "all 0.2s ease",
               boxShadow: attending
@@ -157,7 +172,7 @@ export function RSVPForm({
                 attending === false ? "white" : "#a56b6b",
               fontFamily: "Lato",
               fontWeight: 700,
-              fontSize: "14px",
+              fontSize: "12px",
               cursor: isSubmitting ? "not-allowed" : "pointer",
               transition: "all 0.2s ease",
               boxShadow:
@@ -171,15 +186,71 @@ export function RSVPForm({
           </button>
         </div>
 
-        <input
-          className="form-input"
-          type="text"
-          placeholder="Escribe tu nombre..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          disabled={isSubmitting}
-        />
+        <div className="flex flex-col gap-2">
+          <label
+            className="text-sm font-semibold tracking-wide text-center"
+            style={{
+              color: "#4a8ab5",
+              fontFamily: "Lato",
+            }}
+          >
+            Nombre:
+          </label>
+
+          <input
+            className="form-input"
+            type="text"
+            placeholder="Escribe tu nombre..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            disabled={isSubmitting}
+            style={{
+              fontFamily: "Lato",
+              borderRadius: "14px",
+              padding: "14px 16px",
+              border: "1.5px solid #dbe9f4",
+              background: "#ffffff",
+              boxShadow: "0 4px 12px rgba(74,138,181,0.05)",
+            }}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            className="text-sm font-semibold tracking-wide text-center"
+            style={{
+              color: "#4a8ab5",
+              fontFamily: "Lato",
+            }}
+          >
+            Invitados:
+          </label>
+
+          <input
+            className="form-input"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min={1}
+            max={3}
+            placeholder="Máximo 3 asistentes"
+            value={guestsCount}
+            onChange={(e) =>
+              setGuestsCount(Number(e.target.value))
+            }
+            required
+            disabled={isSubmitting}
+            style={{
+              fontFamily: "Lato",
+              borderRadius: "14px",
+              padding: "14px 16px",
+              border: "1.5px solid #dbe9f4",
+              background: "#ffffff",
+              boxShadow: "0 4px 12px rgba(74,138,181,0.05)",
+            }}
+          />
+        </div>
 
         <button
           type="submit"
