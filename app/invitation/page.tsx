@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 "use client";
@@ -5,7 +6,7 @@
 import { Balloon3D } from "@/components/invitations/Balloon3D";
 import { BalloonCluster } from "@/components/invitations/BalloonCluster";
 import { TeddySVG } from "@/components/invitations/TeddySVG";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MapPinIcon, CheckIcon } from "@heroicons/react/24/solid";
 import { RSVPForm } from "@/components/invitations/RSVPForm";
 import { SuccessMessage } from "@/components/invitations/SuccessMessage";
@@ -72,8 +73,41 @@ export default function BabyShowerPage() {
   const [stars, setStars] = useState<StarParticle[]>([]);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [musicStarted, setMusicStarted] = useState(false);
+
+  const audioList = [
+    "/audioBaby.mp3",
+    "/audio.mp3",
+  ];
+
+  const randomAudio =
+    audioList[Math.floor(Math.random() * audioList.length)];
+
   const BCOLORS = ["#a8c8e8", "#b8d8f0", "#d4b896", "#e8d5b7", "#c8dff0", "#e0ccb0", "#f5d0c8", "#b0ccdc"];
   const SCOLORS = ["#e8c96a", "#a8c8e8", "#d4b896", "#f0b8c8", "#c8b8e8"];
+
+  useEffect(() => {
+    const startMusic = () => {
+      if (audioRef.current && !musicStarted) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setMusicStarted(true);
+          })
+          .catch(() => {
+            console.log("Autoplay bloqueado por navegador");
+          });
+      }
+    };
+
+    window.addEventListener("click", startMusic);
+
+    return () => {
+      window.removeEventListener("click", startMusic);
+    };
+  }, [musicStarted]);
+
 
   useEffect(() => {
     const generatedBalloons = Array.from({ length: 14 }, (_, i) => ({
@@ -596,6 +630,13 @@ export default function BabyShowerPage() {
             {s.sym}
           </div>
         ))}
+
+      <audio
+        ref={audioRef}
+        src={randomAudio}
+        loop
+        preload="auto"
+      />
 
       {/* ══ PAGE CONTENT ══════════════════════════════════ */}
       <div className="bs-page">
